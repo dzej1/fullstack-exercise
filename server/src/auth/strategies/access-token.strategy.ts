@@ -14,6 +14,6 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-at') {
 
   async validate(payload: JwtValidateStrategyPayloadType) {
     // it returns a user object, which can be accessed on req object
-    return { id: payload.sub, username: payload.username };
+    return { id: payload.sub, username: payload.username, role: payload.role };
   }
 }

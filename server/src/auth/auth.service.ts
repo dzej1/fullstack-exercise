@@ -116,8 +116,8 @@ export class AuthService {
     return this.usersService.updateRefreshTokenHash(userId, refreshTokenHash);
   }
 
-  private async getTokensAndUpdateRefreshTokenHash(user) {
-    const payload = { username: user.username, sub: user.id };
+  private async getTokensAndUpdateRefreshTokenHash(user: User) {
+    const payload = { username: user.username, sub: user.id, role: user.role };
     const tokens = await this.getTokens(payload);
     await this.hashRefreshTokenAndUpdate(user.id, tokens.refresh_token);
 

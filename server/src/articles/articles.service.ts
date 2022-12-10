@@ -1,5 +1,5 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Injectable, Inject, ForbiddenException } from '@nestjs/common';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './entities/article.entity';
@@ -11,12 +11,15 @@ export class ArticlesService {
     private articleRepository: Repository<Article>,
   ) {}
 
-  async create(createArticleDto: CreateArticleDto): Promise<Article> {
-    return this.articleRepository.save(createArticleDto);
+  async create(
+    createArticleDto: CreateArticleDto,
+    userId: number,
+  ): Promise<Article> {
+    return this.articleRepository.save({ ...createArticleDto, userId });
   }
 
   async findAll(): Promise<Article[]> {
-    return this.articleRepository.find();
+    return this.articleRepository.find({ relations: { comments: true } });
   }
 
   async findOne(id: number): Promise<Article> {
@@ -26,11 +29,24 @@ export class ArticlesService {
   async update(
     id: number,
     updateArticleDto: UpdateArticleDto,
-  ): Promise<UpdateResult> {
-    return this.articleRepository.update({ id }, updateArticleDto);
+    userId: number,
+  ): Promise<Article> {
+    const article = await this.articleRepository.findOneBy({ id });
+
+    if (article.userId !== userId) {
+      throw new ForbiddenException();
+    }
+
+    return this.articleRepository.save({ id, userId, ...updateArticleDto });
   }
 
-  async remove(id: number): Promise<DeleteResult> {
+  async remove(id: number, userId: number): Promise<DeleteResult> {
+    const article = await this.articleRepository.findOneBy({ id });
+
+    if (article.userId !== userId) {
+      throw new ForbiddenException();
+    }
+
     return this.articleRepository.delete(id);
   }
 }
