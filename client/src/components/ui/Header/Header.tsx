@@ -1,8 +1,9 @@
-import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-import { Link } from "react-router-dom";
+import UserLink from "./UserLink";
 
 function Header() {
   return (
@@ -18,9 +19,7 @@ function Header() {
           </Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link as={Link} to="/login">
-            Log in
-          </Nav.Link>
+          <UserLink />
         </Nav>
       </Container>
     </Navbar>
