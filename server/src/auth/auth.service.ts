@@ -17,17 +17,21 @@ export class AuthService {
   async validateUserByPassword(
     username: string,
     password: string,
+    fromSingUp?: boolean,
   ): Promise<UserWithoutSecrets> {
     const user = await this.usersService.findOneByUserName(username);
+    const alreadySignedUpMessage = fromSingUp
+      ? 'User is already signed up, but with different password'
+      : null;
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(alreadySignedUpMessage);
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
 
     if (!passwordsMatch) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(alreadySignedUpMessage);
     }
 
     return this.omitSecrets(user);
@@ -55,14 +59,29 @@ export class AuthService {
     return this.omitSecrets(user);
   }
 
-  async login(user: User) {
+  async login(user: UserWithoutSecrets) {
     return await this.getTokensAndUpdateRefreshTokenHash(user);
   }
 
   async signup(dto: AuthDto) {
-    const passwordHash = await this.hashData(dto.password);
-    const user = await this.usersService.create(dto.username, passwordHash);
-    return await this.getTokensAndUpdateRefreshTokenHash(user);
+    const user = this.usersService.findOneByUserName(dto.username);
+
+    if (user) {
+      const validatedUser = await this.validateUserByPassword(
+        dto.username,
+        dto.password,
+        true,
+      );
+
+      return await this.getTokensAndUpdateRefreshTokenHash(validatedUser);
+    } else {
+      const passwordHash = await this.hashData(dto.password);
+      const newUser = await this.usersService.create(
+        dto.username,
+        passwordHash,
+      );
+      return await this.getTokensAndUpdateRefreshTokenHash(newUser);
+    }
   }
 
   async logout(userId: number) {
@@ -116,7 +135,9 @@ export class AuthService {
     return this.usersService.updateRefreshTokenHash(userId, refreshTokenHash);
   }
 
-  private async getTokensAndUpdateRefreshTokenHash(user: User) {
+  private async getTokensAndUpdateRefreshTokenHash(
+    user: User | UserWithoutSecrets,
+  ) {
     const payload = { username: user.username, sub: user.id, role: user.role };
     const tokens = await this.getTokens(payload);
     await this.hashRefreshTokenAndUpdate(user.id, tokens.refresh_token);
