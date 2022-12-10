@@ -20,17 +20,18 @@ export class AuthService {
     fromSingUp?: boolean,
   ): Promise<UserWithoutSecrets> {
     const user = await this.usersService.findOneByUserName(username);
-    const alreadySignedUpMessage = fromSingUp
-      ? 'User is already signed up, but with different password'
-      : null;
 
     if (!user) {
-      throw new UnauthorizedException(alreadySignedUpMessage);
+      throw new UnauthorizedException();
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
 
     if (!passwordsMatch) {
+      const alreadySignedUpMessage = fromSingUp
+        ? 'User is already signed up, but with different password'
+        : null;
+
       throw new UnauthorizedException(alreadySignedUpMessage);
     }
 
@@ -64,7 +65,7 @@ export class AuthService {
   }
 
   async signup(dto: AuthDto) {
-    const user = this.usersService.findOneByUserName(dto.username);
+    const user = await this.usersService.findOneByUserName(dto.username);
 
     if (user) {
       const validatedUser = await this.validateUserByPassword(
