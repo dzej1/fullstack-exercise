@@ -2,7 +2,7 @@ import { useLocalStorage } from "usehooks-ts";
 import axios from "axios";
 import { LoginFormType } from "../types";
 import { useMemo } from "react";
-import { JwtPayload } from "../types";
+import { JwtPayloadType } from "../types";
 
 axios.defaults.baseURL = "http://localhost:3333/";
 
@@ -21,7 +21,7 @@ export const useUser = () => {
     "refresh_token",
     null
   );
-  const [user, setUser]: [JwtPayload | null, Function] = useLocalStorage(
+  const [user, setUser]: [JwtPayloadType | null, Function] = useLocalStorage(
     "user",
     parseUserFromJwt(accessToken)
   );

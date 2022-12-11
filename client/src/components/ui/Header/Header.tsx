@@ -7,7 +7,7 @@ import UserLink from "./UserLink";
 
 function Header() {
   return (
-    <Navbar bg="light">
+    <Navbar bg="light" sticky="top">
       <Container>
         <Navbar.Brand>😼</Navbar.Brand>
         <Nav className="me-auto">

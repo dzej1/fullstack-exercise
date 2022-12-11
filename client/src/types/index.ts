@@ -1,5 +1,5 @@
 import { LoginFormType } from "./LoginFormType";
 import { LoginFormReducerActionType } from "./LoginFormReducerActionType";
-import { JwtPayload } from "./JwtPayloadType";
+import { JwtPayloadType } from "./JwtPayloadType";
 
-export type { LoginFormType, LoginFormReducerActionType, JwtPayload };
+export type { LoginFormType, LoginFormReducerActionType, JwtPayloadType };
