@@ -1,3 +1,4 @@
+import { RecentArticlesRoute } from "./RecentArticlesRoute";
 import { Login } from "./Login";
 
-export { Login };
+export { RecentArticlesRoute, Login };
