@@ -82,7 +82,6 @@ function NewArticleRoute() {
       .then((data) => dispatch({ type: "imageId", newValue: data.data }));
   }
 
-  // @ts-ignore
   return (
     <Container className="pt-3">
       <h1>

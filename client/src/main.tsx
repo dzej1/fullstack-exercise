@@ -32,6 +32,8 @@ const router = createBrowserRouter([
       {
         path: "/article/:id",
         element: <ArticleDetailRoute />,
+        //TODO:
+        // @ts-ignore
         loader: articleDetailLoader(queryClient),
       },
       {

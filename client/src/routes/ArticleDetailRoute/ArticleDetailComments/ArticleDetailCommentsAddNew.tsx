@@ -17,6 +17,8 @@ function ArticleDetailCommentsAddNew() {
   const { username } = useUser();
   const article = useLoaderData() as Awaited<{ data: ArticleType }>;
   const queryClient = useQueryClient();
+  //TODO:
+  // @ts-ignore
   const { mutate, isLoading } = useMutation(createComment, {
     onSuccess: () => {
       queryClient.invalidateQueries({
