@@ -1,12 +1,13 @@
 import React from "react";
+
 import Image from "react-bootstrap/Image";
 
 type AvatarProps = {
-  username: string;
+  username?: string;
   diameter?: number;
 };
 
-function Avatar({ username, diameter = 23 }: AvatarProps): JSX.Element {
+function Avatar({ username = "x", diameter = 23 }: AvatarProps): JSX.Element {
   return (
     <Image
       alt={`${username}'s avatar`}

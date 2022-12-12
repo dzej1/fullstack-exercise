@@ -5,6 +5,8 @@ import { CreateCommentDtoType } from "./CreateCommentDtoType";
 import { JwtPayloadType } from "./JwtPayloadType";
 import { LoginFormType } from "./LoginFormType";
 import { LoginFormReducerActionType } from "./LoginFormReducerActionType";
+import { NewArticleFormType } from "./NewArticleFormType";
+import { NewArticleFormReducerActionType } from "./NewArticleFormReducerActionType";
 
 export type {
   ArticleDetailParamsType,
@@ -15,4 +17,6 @@ export type {
   JwtPayloadType,
   LoginFormType,
   LoginFormReducerActionType,
+  NewArticleFormType,
+  NewArticleFormReducerActionType,
 };

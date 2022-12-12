@@ -11,7 +11,7 @@ const parseUserFromJwt = (token: string | null) => {
 
   try {
     return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
+  } catch (error) {
     return null;
   }
 };

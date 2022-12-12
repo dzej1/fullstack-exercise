@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import Avatar from "../Avatar/Avatar";
 import { useUser } from "../../../hooks";
+import AdminItems from "./AdminItems";
 
 function Header() {
   const { isLogged, username, logout } = useUser();
@@ -17,6 +18,7 @@ function Header() {
         </>
       }
     >
+      <AdminItems />
       <NavDropdown.Item>Profile</NavDropdown.Item>
       <NavDropdown.Item onClick={() => logout()}>Logout</NavDropdown.Item>
     </NavDropdown>

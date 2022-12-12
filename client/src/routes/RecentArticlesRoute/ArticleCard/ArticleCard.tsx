@@ -1,8 +1,8 @@
 import ArticleCardFooter from "./ArticleCardFooter";
-import CreationInfo from "../../../components/ui/CreationInfo/CreationInfo";
 import ArticleCardImage from "./ArticleCardImage";
-import ArticleCardTitle from "./ArticleCardTitle";
 import ArticleCardPerex from "./ArticleCardPerex";
+import ArticleCardTitle from "./ArticleCardTitle";
+import CreationInfo from "../../../components/ui/CreationInfo/CreationInfo";
 
 type ArticleCardProps = {
   perex: string;
@@ -11,6 +11,7 @@ type ArticleCardProps = {
   createdAt: string;
   comments: Array<any>;
   id: number;
+  imageId: number;
 };
 
 function ArticleCard({
@@ -20,12 +21,13 @@ function ArticleCard({
   createdAt,
   comments,
   id,
+  imageId,
 }: ArticleCardProps) {
   return (
     <div className="container">
       <div className="row">
         <div className="col-12 col-md-auto">
-          <ArticleCardImage src="https://placekitten.com/g/300/300" />
+          <ArticleCardImage imageId={imageId} />
         </div>
         <div className="col">
           <ArticleCardTitle title={title} />

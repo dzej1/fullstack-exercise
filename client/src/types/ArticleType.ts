@@ -9,7 +9,7 @@ export type ArticleType = {
   title: string;
   perex: string;
   content: string;
-  imageUrl: string;
+  imageId: number;
   comments: CommentType[];
 };
 

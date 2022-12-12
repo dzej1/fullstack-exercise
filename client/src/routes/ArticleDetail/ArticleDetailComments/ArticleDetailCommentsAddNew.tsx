@@ -7,11 +7,13 @@ import { ChangeEvent, MouseEvent, useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ArticleType, CreateCommentDtoType } from "../../../types";
+import { useUser } from "../../../hooks";
 
 const createComment = (payload: CreateCommentDtoType) =>
   axios.post("comments", payload);
 
 function ArticleDetailCommentsAddNew() {
+  const { username } = useUser();
   const article = useLoaderData() as Awaited<{ data: ArticleType }>;
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createComment, {
@@ -25,13 +27,13 @@ function ArticleDetailCommentsAddNew() {
   const [comment, setComment] = useState("");
   const isEmpty = comment.length === 0;
 
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    e.preventDefault();
-    setComment(e.target.value);
+  const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    event.preventDefault();
+    setComment(event.target.value);
   };
 
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     mutate({
       contentMarkdown: comment,
       articleId: article.data.id,
@@ -41,7 +43,7 @@ function ArticleDetailCommentsAddNew() {
 
   return (
     <Container className="d-flex mb-5">
-      <Avatar username={"test"} diameter={48} />
+      <Avatar username={username} diameter={48} />
 
       <Form>
         <Form.Control

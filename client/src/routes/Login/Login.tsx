@@ -53,8 +53,8 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault();
+  const handleSubmit = (event: MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
     login(formValues);
   };
 

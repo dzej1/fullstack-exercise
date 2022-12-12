@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RecentArticlesRoute } from "./routes";
+import { NewArticleRoute, RecentArticlesRoute } from "./routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,6 +12,7 @@ import {
   ArticleDetail,
   loader as articleDetailLoader,
 } from "./routes/ArticleDetail";
+import { RequireAuth } from "./components/ui";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
         path: "/article/:id",
         element: <ArticleDetail />,
         loader: articleDetailLoader(queryClient),
+      },
+      {
+        path: "/new-article",
+        element: (
+          <RequireAuth>
+            <NewArticleRoute />
+          </RequireAuth>
+        ),
       },
       {
         path: "about",
