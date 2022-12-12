@@ -8,6 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import { Login } from "./routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  ArticleDetail,
+  loader as articleDetailLoader,
+} from "./routes/ArticleDetail";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -20,7 +26,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/article/:id",
-        element: null,
+        element: <ArticleDetail />,
+        loader: articleDetailLoader(queryClient),
       },
       {
         path: "about",
@@ -41,8 +48,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

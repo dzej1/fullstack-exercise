@@ -1,7 +1,7 @@
 import { useLocalStorage } from "usehooks-ts";
 import axios from "axios";
 import { LoginFormType } from "../types";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { JwtPayloadType } from "../types";
 
 axios.defaults.baseURL = "http://localhost:3333/";
@@ -26,13 +26,21 @@ export const useUser = () => {
     parseUserFromJwt(accessToken)
   );
 
-  const isLogged = useMemo(() => {
-    if (!user) return false;
+  const [isLogged, isAdmin] = useMemo(() => {
+    if (!user) return [false, false];
 
     const tokenExpiry = new Date(user.exp * 1000);
 
-    return new Date() <= tokenExpiry;
+    return [new Date() <= tokenExpiry, user.role === "admin"];
   }, [user]);
+
+  useEffect(() => {
+    if (accessToken) {
+      axios.defaults.headers.common = {
+        Authorization: `bearer ${accessToken}`,
+      };
+    }
+  }, [accessToken]);
 
   const login = ({ username, password }: LoginFormType) => {
     axios.post("auth/login", { username, password }).then((data) => {
@@ -64,5 +72,12 @@ export const useUser = () => {
         setUser(parseUserFromJwt(accessToken));
       });
   };
-  return { login, logout, refresh, isLogged, username: user?.username };
+  return {
+    login,
+    logout,
+    refresh,
+    isLogged,
+    isAdmin,
+    username: user?.username,
+  };
 };

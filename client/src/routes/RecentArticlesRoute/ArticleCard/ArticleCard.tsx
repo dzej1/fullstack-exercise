@@ -1,5 +1,5 @@
 import ArticleCardFooter from "./ArticleCardFooter";
-import ArticleCardCreationInfo from "./ArticleCardCreationInfo";
+import CreationInfo from "../../../components/ui/CreationInfo/CreationInfo";
 import ArticleCardImage from "./ArticleCardImage";
 import ArticleCardTitle from "./ArticleCardTitle";
 import ArticleCardPerex from "./ArticleCardPerex";
@@ -7,7 +7,7 @@ import ArticleCardPerex from "./ArticleCardPerex";
 type ArticleCardProps = {
   perex: string;
   title: string;
-  userId: number;
+  user: { username: string };
   createdAt: string;
   comments: Array<any>;
   id: number;
@@ -16,7 +16,7 @@ type ArticleCardProps = {
 function ArticleCard({
   perex,
   title,
-  userId,
+  user,
   createdAt,
   comments,
   id,
@@ -29,7 +29,7 @@ function ArticleCard({
         </div>
         <div className="col">
           <ArticleCardTitle title={title} />
-          <ArticleCardCreationInfo userId={userId} createdAt={createdAt} />
+          <CreationInfo username={user.username} createdAt={createdAt} />
           <ArticleCardPerex perex={perex} />
           <ArticleCardFooter comments={comments} id={id} />
         </div>

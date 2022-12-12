@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import Avatar from "./Avatar";
+import Avatar from "../Avatar/Avatar";
 import { useUser } from "../../../hooks";
 
 function Header() {
