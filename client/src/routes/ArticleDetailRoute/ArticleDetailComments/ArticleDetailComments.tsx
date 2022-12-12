@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import ArticleDetailCommentsAddNew from "./ArticleDetailCommentsAddNew";
 import { useUser } from "../../../hooks";
 import { useQuery } from "@tanstack/react-query";
-import { articleDetailQuery } from "../ArticleDetail";
+import { articleDetailQuery } from "../ArticleDetailRoute";
 import ArticleDetailComment from "./ArticleDetailComment";
 import { ArticleType, CommentType } from "../../../types";
 

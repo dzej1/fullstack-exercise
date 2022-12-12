@@ -32,7 +32,7 @@ const initialFormValues = {
   password: "",
 };
 
-function Login() {
+function LoginRoute() {
   const { login, isLogged } = useUser();
   const navigate = useNavigate();
   const [formValues, dispatchValueChange] = useReducer(
@@ -94,4 +94,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginRoute;

@@ -1,5 +1,6 @@
-import { Login } from "./Login";
+import { ArticleDetailRoute } from "./ArticleDetailRoute";
+import { LoginRoute } from "./LoginRoute";
 import { NewArticleRoute } from "./NewArticleRoute";
 import { RecentArticlesRoute } from "./RecentArticlesRoute";
 
-export { Login, NewArticleRoute, RecentArticlesRoute };
+export { ArticleDetailRoute, LoginRoute, NewArticleRoute, RecentArticlesRoute };

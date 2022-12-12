@@ -40,7 +40,7 @@ export const loader =
     );
   };
 
-function ArticleDetail() {
+function ArticleDetailRoute() {
   const article = useLoaderData() as Awaited<{ data: ArticleDetailType }>;
 
   return (
@@ -63,4 +63,4 @@ function ArticleDetail() {
   );
 }
 
-export default ArticleDetail;
+export default ArticleDetailRoute;

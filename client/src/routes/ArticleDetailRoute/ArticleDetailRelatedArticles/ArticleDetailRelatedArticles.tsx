@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { articleDetailQuery } from "../ArticleDetail";
+import { articleDetailQuery } from "../ArticleDetailRoute";
 import { ArticleDetailType, ArticleType } from "../../../types";
 import ArticleDetailRelatedArticle from "./ArticleDetailRelatedArticle";
 

@@ -1,18 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { NewArticleRoute, RecentArticlesRoute } from "./routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import App from "./App";
-import { Login } from "./routes";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  ArticleDetail,
-  loader as articleDetailLoader,
-} from "./routes/ArticleDetail";
 import { RequireAuth } from "./components/ui";
+import { loader as articleDetailLoader } from "./routes/ArticleDetailRoute";
+
+import {
+  ArticleDetailRoute,
+  LoginRoute,
+  NewArticleRoute,
+  RecentArticlesRoute,
+} from "./routes";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/article/:id",
-        element: <ArticleDetail />,
+        element: <ArticleDetailRoute />,
         loader: articleDetailLoader(queryClient),
       },
       {
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: <LoginRoute />,
       },
       {
         path: "/signup",
