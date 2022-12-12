@@ -3,6 +3,7 @@ import axios from "axios";
 import { LoginFormType } from "../types";
 import { useMemo, useEffect } from "react";
 import { JwtPayloadType } from "../types";
+import { useLocation } from "react-router";
 
 axios.defaults.baseURL = "http://localhost:3333/";
 
@@ -16,6 +17,7 @@ const parseUserFromJwt = (token: string | null) => {
   }
 };
 export const useUser = () => {
+  const location = useLocation();
   const [accessToken, setAccessToken] = useLocalStorage("access_token", null);
   const [refreshToken, setRefreshToken] = useLocalStorage(
     "refresh_token",
@@ -32,7 +34,7 @@ export const useUser = () => {
     const tokenExpiry = new Date(user.exp * 1000);
 
     return [new Date() <= tokenExpiry, user.role === "admin"];
-  }, [user]);
+  }, [user, location]);
 
   useEffect(() => {
     if (accessToken) {

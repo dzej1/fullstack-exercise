@@ -11,10 +11,12 @@ import { loader as articleDetailLoader } from "./routes/ArticleDetailRoute";
 
 import {
   ArticleDetailRoute,
+  ArticleListRoute,
   LoginRoute,
   NewArticleRoute,
   RecentArticlesRoute,
 } from "./routes";
+import axios from "axios";
 
 const queryClient = new QueryClient();
 
@@ -35,10 +37,20 @@ const router = createBrowserRouter([
       {
         path: "/new-article",
         element: (
-          <RequireAuth>
+          <RequireAuth admin>
             <NewArticleRoute />
           </RequireAuth>
         ),
+      },
+
+      {
+        path: "/admin",
+        element: (
+          <RequireAuth admin>
+            <ArticleListRoute />
+          </RequireAuth>
+        ),
+        loader: () => axios.get(`/articles`),
       },
       {
         path: "about",

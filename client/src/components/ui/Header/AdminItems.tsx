@@ -11,7 +11,9 @@ function AdminItems() {
       <NavDropdown.Item as={Link} to="/new-article">
         New Article
       </NavDropdown.Item>
-      <NavDropdown.Item>My Articles</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/admin">
+        My Articles
+      </NavDropdown.Item>
       <NavDropdown.Divider></NavDropdown.Divider>
     </>
   ) : null;

@@ -20,14 +20,16 @@ export class Comment {
   @Column({ type: 'int' })
   articleId: number;
 
-  @ManyToOne(() => Article, (article) => article.comments)
+  @ManyToOne(() => Article, (article) => article.comments, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'articleId' })
   article: Article;
 
   @Column({ type: 'int' })
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
 

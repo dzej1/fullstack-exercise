@@ -9,8 +9,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ArticleType, CreateCommentDtoType } from "../../../types";
 import { useUser } from "../../../hooks";
 
-const createComment = (payload: CreateCommentDtoType) =>
+function createComment(payload: CreateCommentDtoType) {
   axios.post("comments", payload);
+}
 
 function ArticleDetailCommentsAddNew() {
   const { username } = useUser();

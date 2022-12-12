@@ -11,6 +11,11 @@ import {
   NewArticleFormType,
 } from "../../types";
 import NewArticleImagePreview from "./NewArticleImagePreview";
+import { useQueryClient } from "@tanstack/react-query";
+
+function stripMarkdown(text: string) {
+  return text.replace(/__|\*|#|(?:\[([^\]]*)\]\([^)]*\))/gm, "$1");
+}
 
 function reducer(
   formValues: NewArticleFormType,
@@ -38,6 +43,7 @@ const initialFormValues = {
 
 function NewArticleRoute() {
   const navigator = useNavigate();
+  const queryClient = useQueryClient();
   const [formValues, dispatch] = useReducer(reducer, initialFormValues);
   const isFormValid = Object.values(formValues).every((value) => !!value);
 
@@ -52,9 +58,12 @@ function NewArticleRoute() {
   async function handleArticlePublish() {
     const newArticle = await axios.post("articles", {
       title: formValues.title,
-      perex: formValues.content.slice(0, 100),
+      perex: stripMarkdown(formValues.content).slice(0, 100),
       content: formValues.content,
       imageId: formValues.imageId,
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["articles"],
     });
     navigator(`/article/${newArticle.data.id}`);
   }

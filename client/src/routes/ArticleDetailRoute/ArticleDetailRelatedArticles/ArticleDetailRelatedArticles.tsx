@@ -19,7 +19,10 @@ function ArticleDetailRelatedArticles() {
     <>
       <h3>Related Articles</h3>
       {data.data.relatedArticles.map((relatedArticle) => (
-        <ArticleDetailRelatedArticle relatedArticle={relatedArticle} />
+        <ArticleDetailRelatedArticle
+          key={relatedArticle.id}
+          relatedArticle={relatedArticle}
+        />
       ))}
     </>
   ) : null;

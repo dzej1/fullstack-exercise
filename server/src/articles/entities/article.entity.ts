@@ -20,7 +20,7 @@ export class Article {
   @Column({ type: 'int' })
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.articles)
+  @ManyToOne(() => User, (user) => user.articles, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
 
