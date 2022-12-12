@@ -26,10 +26,10 @@ export class User {
   @Column({ nullable: true })
   refreshTokenHash: string;
 
-  @OneToMany(() => Article, (article) => article.user, { cascade: true })
+  @OneToMany(() => Article, (article) => article.user)
   articles: Article[];
 
-  @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
+  @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 
   @Column({

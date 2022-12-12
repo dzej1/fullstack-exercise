@@ -19,11 +19,24 @@ export class ArticlesService {
   }
 
   async findAll(): Promise<Article[]> {
-    return this.articleRepository.find({ relations: { comments: true } });
+    return this.articleQueryWithRelations.clone().getMany();
   }
 
-  async findOne(id: number): Promise<Article> {
-    return this.articleRepository.findOneBy({ id });
+  async findOne(
+    id: number,
+  ): Promise<(Article & { relatedArticles: Article[] }) | null> {
+    const article = await this.articleQueryWithRelations
+      .clone()
+      .where('article.id = :id', { id })
+      .getOne();
+
+    const relatedArticles = await this.articleQueryWithRelations
+      .clone()
+      .where('article.id != :id', { id })
+      .limit(5)
+      .getMany();
+
+    return { ...article, relatedArticles };
   }
 
   async update(
@@ -49,4 +62,14 @@ export class ArticlesService {
 
     return this.articleRepository.delete(id);
   }
+
+  private readonly articleQueryWithRelations = this.articleRepository
+    .createQueryBuilder('article')
+    .leftJoin('article.comments', 'comment')
+    .leftJoin('article.user', 'articleUser')
+    .leftJoin('comment.user', 'commentUser')
+    .select('article')
+    .addSelect('articleUser.username')
+    .addSelect('comment')
+    .addSelect('commentUser.username');
 }

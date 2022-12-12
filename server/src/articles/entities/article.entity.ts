@@ -15,7 +15,7 @@ export class Article {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'int' })
   userId: number;
 
   @ManyToOne(() => User, (user) => user.articles)
@@ -34,6 +34,6 @@ export class Article {
   @Column({ nullable: true })
   content: string;
 
-  @OneToMany(() => Comment, (comment) => comment.article, { cascade: true })
+  @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
 }
