@@ -6,9 +6,11 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { Comment } from '../../comments/entities/comment.entity';
 import { User } from '../../users/entities/user.entity';
+import Image from '../../images/entities/image.entity';
 
 @Entity()
 export class Article {
@@ -36,4 +38,11 @@ export class Article {
 
   @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
+
+  @JoinColumn({ name: 'imageId' })
+  @OneToOne(() => Image)
+  public image: Image;
+
+  @Column()
+  public imageId: number;
 }

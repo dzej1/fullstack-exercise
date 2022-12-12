@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, ValidateIf } from 'class-validator';
 
 export class CreateArticleDto {
   @IsString()
@@ -12,4 +12,8 @@ export class CreateArticleDto {
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  @IsNumber()
+  @ValidateIf((object, value) => value !== null)
+  imageId!: number | null;
 }
