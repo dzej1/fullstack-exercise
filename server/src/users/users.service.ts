@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -8,6 +9,10 @@ export class UsersService {
     @Inject('USER_REPOSITORY')
     private userRepository: Repository<User>,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    return this.seedDatabaseWithUsers();
+  }
 
   async findOneByUserName(username: string): Promise<User | null> {
     return this.userRepository.findOneBy({ username });
@@ -31,5 +36,18 @@ export class UsersService {
 
   async removeRefreshTokenHash(id) {
     return this.updateRefreshTokenHash(id, null);
+  }
+
+  async seedDatabaseWithUsers() {
+    if ((await this.userRepository.count()) === 0) {
+      for (const username of ['admin', 'public']) {
+        const passwordHash = await bcrypt.hash(username, 10);
+        await this.userRepository.save({
+          username,
+          passwordHash,
+          role: username,
+        });
+      }
+    }
   }
 }

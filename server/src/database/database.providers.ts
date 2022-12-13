@@ -13,7 +13,6 @@ export const databaseProviders = [
         database: 'postgres',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
-        logging: true,
       });
 
       return dataSource.initialize();
