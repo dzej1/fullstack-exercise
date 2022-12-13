@@ -12,7 +12,9 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { AccessTokenAuthGuard } from '../auth/guards/access-token-auth.guard';
 import { GetCurrentUserId } from '../decorators/get-current-user-id.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('comments')
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}

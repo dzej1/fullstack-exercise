@@ -19,7 +19,9 @@ import { randomUUID } from 'crypto';
 import { createReadStream } from 'fs';
 import { Response } from 'express';
 import { ImagesService } from './images.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('images')
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}

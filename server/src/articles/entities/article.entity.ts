@@ -43,6 +43,6 @@ export class Article {
   @OneToOne(() => Image)
   public image: Image;
 
-  @Column()
+  @Column({ nullable: true })
   public imageId: number;
 }

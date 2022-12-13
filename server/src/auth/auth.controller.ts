@@ -13,7 +13,9 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { RefreshTokenAuthGuard } from './guards/refresh-token-auth.guard';
 import { AccessTokenAuthGuard } from './guards/access-token-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
