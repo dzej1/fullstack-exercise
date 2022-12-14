@@ -22,3 +22,5 @@ Voting system is not implemented, because of time. In case of having more time I
 I tried to implement swagger, but it is kinda not working as it should.
 
 Unfortunately, I was not able to provide any tests, as it did not work as I expected (unit tests) and deeper troubleshooting was needed, but no time left. I do not have any experience with e2e / client tests.
+
+And of course, I will use nestjs's config service for storing sensitive data as secrets for tokens, db connection links or any magic numbers in code to have one point where is possible to update application configuration.
